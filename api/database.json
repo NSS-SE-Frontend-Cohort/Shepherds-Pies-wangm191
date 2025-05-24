@@ -1,195 +1,103 @@
-{
+    {
     "orders": [
         {
-            "id": 1,
-            "pizzaIds": [1],
-            "employeeId": 1,
-            "delivererId": null,
-            "price": 14.10,
-            "tip": 2.55,
-            "dateAndTime": "2025-05-24T00:55:30Z"
+        "id": 1,
+        "employeeId": 1,
+        "delivererId": null,
+        "price": 14.10,
+        "tip": 2.55,
+        "dateAndTime": "2025-05-24T00:55:30Z"
         }, 
         {
-            "id": 2,
-            "pizzaIds": [2, 6],
-            "employeeId": 2,
-            "delivererId": 2,
-            "price": 32.70,
-            "tip": 4.90,
-            "dateAndTime": "2025-05-25T10:55:25Z"
+        "id": 2,
+        "employeeId": 2,
+        "delivererId": 2,
+        "price": 32.70,
+        "tip": 4.90,
+        "dateAndTime": "2025-05-25T10:55:25Z"
         },
         {
-            "id": 3,
-            "pizzaIds": [4],
-            "employeeId": 3,
-            "delivererId": 1,
-            "price": 20.00,
-            "tip": 3.00,
-            "dateAndTime": "2025-05-25T12:40:00Z"
+        "id": 3,
+        "employeeId": 3,
+        "delivererId": 2,
+        "price": 20.00,
+        "tip": 3.00,
+        "dateAndTime": "2025-05-25T12:40:00Z"
         },
         {
-            "id": 4,
-            "pizzaIds": [3, 5],
-            "employeeId": 3,
-            "delivererId": 2,
-            "price": 34.25,
-            "tip": 5.25,
-            "dateAndTime": "2025-05-25T17:30:50Z"
+        "id": 4,
+        "employeeId": 3,
+        "delivererId": 1,
+        "price": 34.25,
+        "tip": 5.25,
+        "dateAndTime": "2025-05-25T17:30:50Z"
         }
-    ], 
+    ],
+    "orderPizzas": [
+        { "id": 1, "orderId": 1, "pizzaId": 1 },
+        { "id": 2, "orderId": 2, "pizzaId": 2 },
+        { "id": 3, "orderId": 2, "pizzaId": 6 },
+        { "id": 4, "orderId": 3, "pizzaId": 4 },
+        { "id": 5, "orderId": 4, "pizzaId": 3 },
+        { "id": 6, "orderId": 4, "pizzaId": 5 }
+    ],
     "pizzas": [
-        {
-            "id": 1,
-            "sizeId": 2,
-            "cheeseId": 1,
-            "sauceId": 4,
-            "toppingIds": [7, 1]
-        },
-        {
-            "id": 2,
-            "sizeId": 1,
-            "cheeseId": 3,
-            "sauceId": 2,
-            "toppingIds": [2]
-        },
-        {
-            "id": 3,
-            "sizeId": 3,
-            "cheeseId": 4,
-            "sauceId": 4,
-            "toppingIds": [3, 4, 5]
-        },
-        {
-            "id": 4,
-            "sizeId": 3,
-            "cheeseId": 6,
-            "sauceId": 1,
-            "toppingIds": []
-        },
-        {
-            "id": 5,
-            "sizeId": 1,
-            "cheeseId": 3,
-            "sauceId": 5,
-            "toppingIds": [8, 3, 7]
-        },
-        {
-            "id": 6,
-            "sizeId": 2,
-            "cheeseId": 2,
-            "sauceId": 3,
-            "toppingIds": [1, 2, 3, 4, 5]
-        }
-    ], 
+        { "id": 1, "sizeId": 2, "cheeseId": 1, "sauceId": 4 },
+        { "id": 2, "sizeId": 1, "cheeseId": 3, "sauceId": 2 },
+        { "id": 3, "sizeId": 3, "cheeseId": 4, "sauceId": 4 },
+        { "id": 4, "sizeId": 3, "cheeseId": 6, "sauceId": 1 },
+        { "id": 5, "sizeId": 1, "cheeseId": 3, "sauceId": 5 },
+        { "id": 6, "sizeId": 2, "cheeseId": 2, "sauceId": 3 }
+    ],
+    "pizzaToppings": [
+        { "id": 1, "pizzaId": 1, "toppingId": 7 },
+        { "id": 2, "pizzaId": 1, "toppingId": 1 },
+        { "id": 3, "pizzaId": 2, "toppingId": 2 },
+        { "id": 4, "pizzaId": 3, "toppingId": 3 },
+        { "id": 5, "pizzaId": 3, "toppingId": 4 },
+        { "id": 6, "pizzaId": 3, "toppingId": 5 },
+        { "id": 7, "pizzaId": 5, "toppingId": 8 },
+        { "id": 8, "pizzaId": 5, "toppingId": 3 },
+        { "id": 9, "pizzaId": 5, "toppingId": 7 },
+        { "id": 10, "pizzaId": 6, "toppingId": 1 },
+        { "id": 11, "pizzaId": 6, "toppingId": 2 },
+        { "id": 12, "pizzaId": 6, "toppingId": 3 },
+        { "id": 13, "pizzaId": 6, "toppingId": 4 },
+        { "id": 14, "pizzaId": 6, "toppingId": 5 }
+    ],
     "pizzaSizes": [
-        {
-            "id": 1,
-            "type": "Small",
-            "size": 10,
-            "cost": 10.00
-        },
-        {
-            "id": 2,
-            "type": "Medium",
-            "size": 14,
-            "cost": 12.50
-        }, 
-        {
-            "id": 3,
-            "type": "Large", 
-            "size": 16,
-            "cost": 15.00
-        }
-    ], 
+        { "id": 1, "type": "Small", "size": 10, "cost": 10.00 },
+        { "id": 2, "type": "Medium", "size": 14, "cost": 12.50 },
+        { "id": 3, "type": "Large", "size": 16, "cost": 15.00 }
+    ],
     "cheeses": [
-        {
-            "id": 1,
-            "type": "Mozzarella"
-        },
-        {
-            "id": 2,
-            "type": "Buffalo Mozzarella"
-        },
-        {
-            "id": 3,
-            "type": "Four Cheese"
-        },
-        {
-            "id": 4, 
-            "type": "Vegan"
-        }, 
-        {
-            "id": 5, 
-            "type": "Ricotta"
-        },
-        {
-            "id": 6,
-            "type": "None"
-        }
-    ], 
+        { "id": 1, "type": "Mozzarella" },
+        { "id": 2, "type": "Buffalo Mozzarella" },
+        { "id": 3, "type": "Four Cheese" },
+        { "id": 4, "type": "Vegan" },
+        { "id": 5, "type": "Ricotta" },
+        { "id": 6, "type": "None" }
+    ],
     "sauces": [
-        {
-            "id": 1,
-            "flavor": "Marinara"
-        },
-        {
-            "id": 2,
-            "flavor": "Arrabbiata"
-        },
-        {
-            "id": 3,
-            "flavor": "Garlic White"
-        },
-        {
-            "id": 4,
-            "flavor": "Diavolo"
-        },
-        {
-            "id": 5,
-            "flavor": "None"
-        }
-    ], 
+        { "id": 1, "flavor": "Marinara" },
+        { "id": 2, "flavor": "Arrabbiata" },
+        { "id": 3, "flavor": "Garlic White" },
+        { "id": 4, "flavor": "Diavolo" },
+        { "id": 5, "flavor": "None" }
+    ],
     "toppings": [
-        {
-            "id": 1,
-            "type": "Sausage",
-            "cost": 1.00
-        }, 
-        {
-            "id": 2,
-            "type": "Pepperoni",
-            "cost": 0.95
-        },
-        {
-            "id": 3,
-            "type": "Mushroom",
-            "cost": 0.85   
-        }, 
-        {
-            "id": 4,
-            "type": "Onion", 
-            "cost": 0.70
-        }, 
-        {
-            "id": 5, 
-            "type": "Green pepper", 
-            "cost": 0.75
-        }, 
-        {
-            "id": 6,
-            "type": "Black olive",
-            "cost": 0.75
-        },
-        {
-            "id": 7,
-            "type": "Basil",
-            "cost": 0.60
-        },
-        {
-            "id": 8,
-            "type": "Extra cheese",
-            "cost": 0.5
-        }
+        { "id": 1, "type": "Sausage", "cost": 1.00 },
+        { "id": 2, "type": "Pepperoni", "cost": 0.95 },
+        { "id": 3, "type": "Mushroom", "cost": 0.85 },
+        { "id": 4, "type": "Onion", "cost": 0.70 },
+        { "id": 5, "type": "Green pepper", "cost": 0.75 },
+        { "id": 6, "type": "Black olive", "cost": 0.75 },
+        { "id": 7, "type": "Basil", "cost": 0.60 },
+        { "id": 8, "type": "Extra cheese", "cost": 0.50 }
+    ], 
+    "employees": [
+        { "id": 1, "email":"plumberPie@gmail.com", "fullName": "Mario Mario", "deliverer": true },
+        { "id": 2, "email":"bettergetyousome@crust.com", "fullName": "Papa John", "deliverer": true}, 
+        { "id": 3, "email":"CaesarIsBig@pizza.org", "fullName": "Caesar Little", "deliverer": false }
     ]
-    
-}
+    }
