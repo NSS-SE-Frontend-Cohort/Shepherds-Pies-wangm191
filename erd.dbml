@@ -1,25 +1,36 @@
 table orders {
-    id int [primary key]
-    pizzaIds []
-    employeeId int 
-    delivererId int 
+    id int [pk]
+    employeeId int [ref: - employees.id]
+    delivererId int [ref: - employees.id]
     price float
     tip float
-    dateAndTime date
+    dateAndTime datetime
 }
 
 table employees {
-    id int [primary key]
+    id int [pk]
+    email varchar
     fullName varchar
     deliverer boolean
 }
 
+table orderPizzas {
+    id int [pk]
+    orderId int [ref: > orders.id]
+    pizzaId int [ref: > pizzas.id]
+}
+
 table pizzas {
-    id int [primary key]
-    sizeId int 
-    cheeseId int
-    sauceId int
-    toppingIds []
+    id int [pk]
+    sizeId int [ref: - pizzaSizes.id]
+    cheeseId int [ref: - cheeses.id]
+    sauceId int [ref: - sauces.id]
+}
+
+table pizzaToppings {
+    id int [pk]
+    pizzaId int [ref: > pizzas.id]
+    toppingId int [ref: > toppings.id]
 }
 
 table pizzaSizes {
@@ -30,26 +41,17 @@ table pizzaSizes {
 }   
 
 table cheeses {
-    id int [primary key]
+    id int [pk]
     type varchar
 }
 
 table sauces {
-    id int [primary key]
+    id int [pk]
     flavor varchar
 }
 
 table toppings {
-    id int [primary key]
+    id int [pk]
     type varchar 
     cost float
 }
-
-Ref: "orders"."pizzaIds" < "pizzas"."id"
-Ref: "orders"."employeeId" < "employees"."id"
-Ref: "orders"."delivererId" < "employees"."id"
-
-Ref: "pizzas"."sizeId" < "pizzaSizes"."id"
-Ref: "pizzas"."cheeseId" < "cheeses"."id"
-Ref: "pizzas"."sauceId" < "sauces"."id"
-Ref: "pizzas"."toppingIds" < "toppings"."id"
