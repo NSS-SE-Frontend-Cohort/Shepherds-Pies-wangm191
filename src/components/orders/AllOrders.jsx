@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { getAllOrders } from "../services/orderService"
+import { getAllOrders } from "../../services/orderService"
 import { Order } from "./Order"
 
 

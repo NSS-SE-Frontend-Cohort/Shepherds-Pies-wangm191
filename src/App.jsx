@@ -1,12 +1,12 @@
 import "./App.css";
-import { AllOrders } from "./orders/AllOrders";
+import { ApplicaionViews } from "./views/ApplicationViews";
+import { Routes, Route } from "react-router-dom";
 
 function App() {
   return (
-    <div>
-      <div className="App">Shepherd's Pies</div>
-      <AllOrders />
-    </div>
+    <Routes>
+      <Route path="*" element={ <ApplicaionViews />} />
+    </Routes>
   )
 }
 
