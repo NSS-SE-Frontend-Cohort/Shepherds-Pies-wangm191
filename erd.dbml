@@ -1,0 +1,55 @@
+table orders {
+    id int [primary key]
+    pizzaIds []
+    employeeId int 
+    delivererId int 
+    price float
+    tip float
+    dateAndTime date
+}
+
+table employees {
+    id int [primary key]
+    fullName varchar
+    deliverer boolean
+}
+
+table pizzas {
+    id int [primary key]
+    sizeId int 
+    cheeseId int
+    sauceId int
+    toppingIds []
+}
+
+table pizzaSizes {
+    id int 
+    type varchar
+    size int 
+    cost float 
+}   
+
+table cheeses {
+    id int [primary key]
+    type varchar
+}
+
+table sauces {
+    id int [primary key]
+    flavor varchar
+}
+
+table toppings {
+    id int [primary key]
+    type varchar 
+    cost float
+}
+
+Ref: "orders"."pizzaIds" < "pizzas"."id"
+Ref: "orders"."employeeId" < "employees"."id"
+Ref: "orders"."delivererId" < "employees"."id"
+
+Ref: "pizzas"."sizeId" < "pizzaSizes"."id"
+Ref: "pizzas"."cheeseId" < "cheeses"."id"
+Ref: "pizzas"."sauceId" < "sauces"."id"
+Ref: "pizzas"."toppingIds" < "toppings"."id"
