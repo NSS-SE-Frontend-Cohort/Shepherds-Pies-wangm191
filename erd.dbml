@@ -22,7 +22,7 @@ table orderPizzas {
 
 table pizzas {
     id int [pk]
-    sizeId int [ref: - pizzaSizes.id]
+    sizeId int [ref: - sizes.id]
     cheeseId int [ref: - cheeses.id]
     sauceId int [ref: - sauces.id]
 }
@@ -33,7 +33,7 @@ table pizzaToppings {
     toppingId int [ref: > toppings.id]
 }
 
-table pizzaSizes {
+table sizes {
     id int 
     type varchar
     size int 
