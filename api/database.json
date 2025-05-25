@@ -12,7 +12,7 @@
         "id": 2,
         "employeeId": 2,
         "delivererId": 2,
-        "price": 32.70,
+        "price": 27.70,
         "tip": 4.90,
         "dateAndTime": "2025-05-25T10:55:25Z"
         },
@@ -20,7 +20,7 @@
         "id": 3,
         "employeeId": 3,
         "delivererId": 2,
-        "price": 20.00,
+        "price": 15.00,
         "tip": 3.00,
         "dateAndTime": "2025-05-25T12:40:00Z"
         },
@@ -28,7 +28,7 @@
         "id": 4,
         "employeeId": 3,
         "delivererId": 1,
-        "price": 34.25,
+        "price": 29.25,
         "tip": 5.25,
         "dateAndTime": "2025-05-25T17:30:50Z"
         }
@@ -65,7 +65,7 @@
         { "id": 13, "pizzaId": 6, "toppingId": 4 },
         { "id": 14, "pizzaId": 6, "toppingId": 5 }
     ],
-    "pizzaSizes": [
+    "sizes": [
         { "id": 1, "type": "Small", "size": 10, "cost": 10.00 },
         { "id": 2, "type": "Medium", "size": 14, "cost": 12.50 },
         { "id": 3, "type": "Large", "size": 16, "cost": 15.00 }

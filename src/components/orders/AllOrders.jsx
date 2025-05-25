@@ -3,7 +3,7 @@ import { getAllOrders } from "../../services/orderService"
 import { Order } from "./Order"
 
 
-export const AllOrders = () => {
+export const AllOrders = ({ allEmployees }) => {
     const [allOrders, setAllOrders] = useState([])
 
     useEffect(() => {
@@ -21,6 +21,7 @@ export const AllOrders = () => {
                         <Order 
                             order={orderObj}
                             key={orderObj.id}
+                            allEmployees={allEmployees}
                         />
                     )
                 })}
