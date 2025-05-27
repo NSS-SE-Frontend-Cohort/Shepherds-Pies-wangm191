@@ -23,6 +23,11 @@ export const getPizzaById = (id) => {
     .then((response) => response.json())
 }
 
+// export const getOnlyPizzaById = (id) => {
+//     return fetch (`http://localhost:8088/pizzas?id=${id}`)
+//     .then((response) => response.json())
+// }
+
 export const addPizza = async (pizzaToSend) => {
     const response = await fetch(`http://localhost:8088/pizzas`, {
         method: "POST",
@@ -30,6 +35,28 @@ export const addPizza = async (pizzaToSend) => {
             "Content-Type": "application/json"
         },
         body: JSON.stringify(pizzaToSend)
+    })
+    return response.json()
+}
+
+export const deletePizza = (id) => {
+    return fetch(`http://localhost:8088/pizzas/${id}`, {
+        method: "DELETE",
+        headers: {
+            "Content-Type": "application/json"
+        },
+    })
+}
+
+export const updatePizza = async (pizza) => {
+    const response = await fetch(`http://localhost:8088/pizzas/${pizza.id}`, {
+        method: 'PUT',
+
+        headers: { 
+            'Content-Type': 'application/json',
+        },
+
+        body: JSON.stringify(pizza)
     })
     return response.json()
 }

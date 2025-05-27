@@ -92,8 +92,10 @@ export const OrderDetail = ({ allEmployees, allSizes, allCheeses, allSauces, all
             {pizzas.map((pizza, index) => {
                 const pizzaSize = getSizeById(pizza.sizeId, allSizes)
                 const toppings = getToppingsById(pizza.pizzaToppings.map(pizzaTopping => pizzaTopping.toppingId), allToppings)
+                const toppingTypes = []
                 let pizzaPrice = pizzaSize.cost
                 toppings.map((topping) => {
+                    toppingTypes.push(topping.type + " ")
                     return pizzaPrice += topping.cost
                 }) 
                 return (
@@ -103,7 +105,7 @@ export const OrderDetail = ({ allEmployees, allSizes, allCheeses, allSauces, all
                                 <div className="order-info">Pizza Size: {pizzaSize.type}</div>
                                 <div className="order-info">Cheese: {getCheeseById(pizza.cheeseId, allCheeses).type}</div>
                                 <div className="order-info">Sauces: {getSauceById(pizza.sauceId, allSauces).flavor}</div>
-                                <div className="order-info">Toppings: </div>
+                                <div className="order-info">Toppings: {toppingTypes.length ? toppingTypes : "None"}</div>
                                 <footer>
                                     <div>
                                         <div className="order-info">Pizza Price: ${pizzaPrice.toFixed(2)}</div>

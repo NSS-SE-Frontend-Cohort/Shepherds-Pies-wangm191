@@ -9,6 +9,7 @@ import { getAllOrders } from "../services/orderService"
 import { useState, useEffect } from "react"
 import { getAllCheeses, getAllSizes, getAllSauces, getAllToppings } from "../services/pizzaService"
 import { CreateOrder } from "../components/orders/CreateOrder"
+import { EditOrder } from "../components/orders/EditOrder"
 
 
 export const ApplicaionViews = () => {
@@ -92,6 +93,7 @@ export const ApplicaionViews = () => {
                             currentUser={currentUser}
                             allOrders={allOrders}
                             allEmployees={allEmployees}
+                            getAndSetAllOrders={getAndSetAllOrders}
                         />}
                     />
                 </Route> 
@@ -106,6 +108,18 @@ export const ApplicaionViews = () => {
                         getAndSetAllOrders={getAndSetAllOrders}
                     />}
                 />
+                <Route path="edit">
+                    <Route path=":id" element={
+                        <EditOrder 
+                            allEmployees={allEmployees}
+                            allSizes={allSizes}
+                            allCheeses={allCheeses}
+                            allSauces={allSauces}
+                            allToppings={allToppings}
+                            getAndSetAllOrders={getAndSetAllOrders}
+                        />
+                    }/>
+                </Route>
             </Route>
         </Routes>
     )

@@ -33,12 +33,12 @@
       "dateAndTime": "2025-05-25T17:30:50Z"
     },
     {
-      "employeeId": 3,
-      "delivererId": 1,
-      "tip": 3.33,
-      "dateAndTime": "2025-05-27T09:19:18.920Z",
       "id": 5,
-      "price": 24.75
+      "employeeId": 3,
+      "delivererId": 2,
+      "tip": 3.5,
+      "dateAndTime": "2025-05-27T22:42:48.926Z",
+      "price": 15.95
     }
   ],
   "orderPizzas": [
@@ -73,14 +73,9 @@
       "pizzaId": 5
     },
     {
+      "id": 7,
       "orderId": 5,
-      "pizzaId": 7,
-      "id": 7
-    },
-    {
-      "orderId": 5,
-      "pizzaId": 8,
-      "id": 8
+      "pizzaId": 7
     }
   ],
   "pizzas": [
@@ -121,16 +116,10 @@
       "sauceId": 3
     },
     {
-      "sizeId": 1,
-      "cheeseId": 1,
-      "sauceId": 3,
-      "id": 7
-    },
-    {
-      "sizeId": 2,
+      "id": 7,
+      "sizeId": 3,
       "cheeseId": 3,
-      "sauceId": 5,
-      "id": 8
+      "sauceId": 3
     }
   ],
   "pizzaToppings": [
@@ -206,18 +195,18 @@
     },
     {
       "pizzaId": 7,
-      "toppingId": 2,
-      "id": 15
+      "toppingId": 4,
+      "id": 17
     },
     {
       "pizzaId": 7,
-      "toppingId": 4,
-      "id": 16
+      "toppingId": 5,
+      "id": 18
     },
     {
-      "pizzaId": 8,
-      "toppingId": 7,
-      "id": 17
+      "pizzaId": 7,
+      "toppingId": 6,
+      "id": 19
     }
   ],
   "sizes": [
@@ -311,12 +300,12 @@
     },
     {
       "id": 5,
-      "type": "Green pepper",
+      "type": "Green Pepper",
       "cost": 0.75
     },
     {
       "id": 6,
-      "type": "Black olive",
+      "type": "Black Olive",
       "cost": 0.75
     },
     {
@@ -326,7 +315,7 @@
     },
     {
       "id": 8,
-      "type": "Extra cheese",
+      "type": "Extra Cheese",
       "cost": 0.5
     }
   ],
