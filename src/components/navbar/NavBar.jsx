@@ -13,6 +13,9 @@ export const NavBar = () => {
             <li className="navbar-item">
                 <Link to={"user"}>My Orders</Link>
             </li>
+            <li className="navbar-item">
+                <Link to={"create"}>Create Order</Link>
+            </li>
             {localStorage.getItem("honey_user") ? (
             <li className="navbar-item navbar-logout">
                 <Link

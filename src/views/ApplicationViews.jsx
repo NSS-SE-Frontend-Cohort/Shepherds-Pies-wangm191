@@ -8,6 +8,7 @@ import { getAllEmployees } from "../services/employeeService"
 import { getAllOrders } from "../services/orderService"
 import { useState, useEffect } from "react"
 import { getAllCheeses, getAllSizes, getAllSauces, getAllToppings } from "../services/pizzaService"
+import { CreateOrder } from "../components/orders/CreateOrder"
 
 
 export const ApplicaionViews = () => {
@@ -19,10 +20,14 @@ export const ApplicaionViews = () => {
     const [allSauces, setAllSauces] = useState([])
     const [allToppings, setAllToppings] = useState([])
 
-    useEffect(() => {
-         getAllOrders().then((ordersArray) => {
+    const getAndSetAllOrders = () => {
+        getAllOrders().then((ordersArray) => {
             setAllOrders(ordersArray)
         })
+    }
+
+    useEffect(() => {
+        getAndSetAllOrders()
 
         getAllEmployees().then((employeesArray) => {
             setAllEmployees(employeesArray)
@@ -90,6 +95,17 @@ export const ApplicaionViews = () => {
                         />}
                     />
                 </Route> 
+                <Route path="create" element={
+                    <CreateOrder 
+                        currentUser={currentUser}
+                        allEmployees={allEmployees}
+                        allSizes={allSizes}
+                        allCheeses={allCheeses}
+                        allSauces={allSauces}
+                        allToppings={allToppings}
+                        getAndSetAllOrders={getAndSetAllOrders}
+                    />}
+                />
             </Route>
         </Routes>
     )
