@@ -1,12 +1,14 @@
+import { handlePizzaOptionsInput, handlePizzaToppingsInput } from "./OrderInputs"
+
 export const PizzaForm = ({
-    index,
     pizza,
+    index,
     allSizes,
     allCheeses,
     allSauces,
     allToppings,
-    handleNewPizzaOptions,
-    handleNewPizzaToppings
+    setPizzas
+
 }) => {
     return (
         <div className="pizza-form">
@@ -16,7 +18,7 @@ export const PizzaForm = ({
                 <select
                     name="sizeId"
                     value={pizza.sizeId}
-                    onChange={(e) => handleNewPizzaOptions(index, e)}
+                    onChange={(e) => handlePizzaOptionsInput(index, e, setPizzas)}
                     required
                     className="form-control"
                 >
@@ -31,7 +33,7 @@ export const PizzaForm = ({
                 <select
                     name="cheeseId"
                     value={pizza.cheeseId}
-                    onChange={(e) => handleNewPizzaOptions(index, e)}
+                    onChange={(e) => handlePizzaOptionsInput(index, e, setPizzas)}
                     required
                     className="form-control"
                 >
@@ -46,7 +48,7 @@ export const PizzaForm = ({
                 <select
                     name="sauceId"
                     value={pizza.sauceId}
-                    onChange={(e) => handleNewPizzaOptions(index, e)}
+                    onChange={(e) => handlePizzaOptionsInput(index, e, setPizzas)}
                     required
                     className="form-control"
                 >
@@ -66,7 +68,7 @@ export const PizzaForm = ({
                                 className="form-check-input"
                                 value={topping.id}
                                 checked={(pizza.toppingIds || []).includes(topping.id)}
-                                onChange={(e) => handleNewPizzaToppings(index, e)}
+                                onChange={(e) => handlePizzaToppingsInput(index, e, setPizzas)}
                             />
                             <label className="form-check-label">{topping.type}</label>
                         </div>

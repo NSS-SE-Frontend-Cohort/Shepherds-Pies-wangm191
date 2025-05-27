@@ -5,6 +5,7 @@ import { addOrder, updateOrderPrice } from "../../services/orderService"
 import { addPizza } from "../../services/pizzaService"
 import { addOrderPizza } from "../../services/orderPizzaService"
 import { addPizzaTopping } from "../../services/pizzaToppingService"
+import { handleOrderInput } from "./OrderInputs" 
 
 
 export const CreateOrder = ({ currentUser , allEmployees, allSizes, allCheeses, allSauces, allToppings, getAndSetAllOrders}) => {
@@ -14,57 +15,7 @@ export const CreateOrder = ({ currentUser , allEmployees, allSizes, allCheeses, 
 
     const navigate = useNavigate()
 
-    const handleNewOrder = (event) => {
-        const {name, value } = event.target 
-
-        let newValue = value;
-            if (name === "delivererId") {
-                newValue = value === "" ? null : value;
-            } else if (name === "tip") {
-                newValue = value === "" ? 0 : parseFloat(value);
-            }
-
-        setNewOrder(prev => ({
-            ...prev,
-            [name]: newValue
-        }))
-    }
-
-    const handleNewPizzaToppings = (index, event) => {
-        const { value, checked } = event.target
-        const toppingId = parseInt(value)
-
-        setNewPizzas(prev => {
-            // Copies array, then copies single object from index within array. 
-            const updated = [...prev]
-            const pizza = updated[index]
-            const currentToppings = pizza.toppingIds || []
-            updated[index] = {
-                ...pizza,
-                toppingIds: checked
-                    ? [...currentToppings, toppingId]
-                    : currentToppings.filter(id => id !== toppingId),
-            }
-            return updated
-        })
-    }
-
-    const handleNewPizzaOptions = (index, event) => {
-        const { name, value } = event.target
-
-        const parsedValue = value === "" ? "" : parseInt(value);
-
-        setNewPizzas(prev => {
-            const updated = [...prev]
-            updated[index] = {
-                ...updated[index],
-                [name]: parsedValue
-            }
-            return updated
-        })
-    }
-
-    const saveOrder = async (event) => {
+    const handleSaveOrder = async (event) => {
         event.preventDefault()
 
         let totalPrice = 0 
@@ -154,7 +105,7 @@ export const CreateOrder = ({ currentUser , allEmployees, allSizes, allCheeses, 
                         <select
                             type="number"
                             name="delivererId"
-                            onChange={handleNewOrder}
+                            onChange={handleOrderInput(setNewOrder)}
                             className="form-control"
                         >
                             <option value={"" ?? 0}>Select Deliverer </option>
@@ -178,7 +129,7 @@ export const CreateOrder = ({ currentUser , allEmployees, allSizes, allCheeses, 
                     <input 
                         type="number"
                         name="tip"
-                        onChange={handleNewOrder}
+                        onChange={handleOrderInput(setNewOrder)}
                         required
                         className="form-control"
                     />
@@ -193,13 +144,12 @@ export const CreateOrder = ({ currentUser , allEmployees, allSizes, allCheeses, 
                     allCheeses={allCheeses}
                     allSauces={allSauces}
                     allToppings={allToppings}
-                    handleNewPizzaOptions={handleNewPizzaOptions}
-                    handleNewPizzaToppings={handleNewPizzaToppings}
+                    setPizzas={setNewPizzas}
                 />
             ))}
             <fieldset>
                 <div className="form-group">
-                    <button type="submit" className="form-btn btn-primary" onClick={saveOrder}>Save Order</button>
+                    <button type="submit" className="form-btn btn-primary" onClick={handleSaveOrder}>Save Order</button>
                 </div>
             </fieldset>
         </form>
