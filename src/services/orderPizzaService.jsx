@@ -15,8 +15,8 @@ export const getOrderPizzasByOrderId = async (orderId) => {
 }
 
 
-export const deleteOrderPizza = (id) => {
-    return fetch(`http://localhost:8088/orderPizzas/${id}`, {
+export const deleteOrderPizza = async (id) => {
+    return await fetch(`http://localhost:8088/orderPizzas/${id}`, {
         method: "DELETE",
         headers: {
           "content-Type": "application/json",

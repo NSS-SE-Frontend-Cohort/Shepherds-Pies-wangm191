@@ -39,8 +39,8 @@ export const addPizza = async (pizzaToSend) => {
     return response.json()
 }
 
-export const deletePizza = (id) => {
-    return fetch(`http://localhost:8088/pizzas/${id}`, {
+export const deletePizza = async (id) => {
+    return await fetch(`http://localhost:8088/pizzas/${id}`, {
         method: "DELETE",
         headers: {
             "Content-Type": "application/json"
