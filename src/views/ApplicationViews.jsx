@@ -10,6 +10,7 @@ import { useState, useEffect } from "react"
 import { getAllCheeses, getAllSizes, getAllSauces, getAllToppings } from "../services/pizzaService"
 import { CreateOrder } from "../components/orders/CreateOrder"
 import { EditOrder } from "../components/orders/EditOrder"
+import { OptionList } from "../lists/OptionList"
 
 
 export const ApplicaionViews = () => {
@@ -117,6 +118,32 @@ export const ApplicaionViews = () => {
                             allSauces={allSauces}
                             allToppings={allToppings}
                             getAndSetAllOrders={getAndSetAllOrders}
+                        />
+                    }/>
+                </Route>
+                <Route path="option">
+                    <Route path="sizes" element={
+                        <OptionList
+                            allOptionList={allSizes}
+                            optionIndex={1}
+                        />
+                    }/>
+                    <Route path="cheeses" element={
+                        <OptionList
+                            allOptionList={allCheeses}
+                            optionIndex={2}
+                        />
+                    }/>
+                    <Route path="sauces" element={
+                        <OptionList
+                            allOptionList={allSauces}
+                            optionIndex={3}
+                        />
+                    }/>
+                    <Route path="toppings" element={
+                        <OptionList
+                            allOptionList={allToppings}
+                            optionIndex={4}
                         />
                     }/>
                 </Route>
