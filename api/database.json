@@ -31,14 +31,6 @@
       "price": 29.25,
       "tip": 5.25,
       "dateAndTime": "2025-05-25T17:30:50Z"
-    },
-    {
-      "id": 5,
-      "employeeId": 3,
-      "delivererId": 2,
-      "tip": 3.5,
-      "dateAndTime": "2025-05-27T22:42:48.926Z",
-      "price": 15.95
     }
   ],
   "orderPizzas": [
@@ -71,11 +63,6 @@
       "id": 6,
       "orderId": 4,
       "pizzaId": 5
-    },
-    {
-      "id": 7,
-      "orderId": 5,
-      "pizzaId": 7
     }
   ],
   "pizzas": [
@@ -113,12 +100,6 @@
       "id": 6,
       "sizeId": 2,
       "cheeseId": 2,
-      "sauceId": 3
-    },
-    {
-      "id": 7,
-      "sizeId": 3,
-      "cheeseId": 3,
       "sauceId": 3
     }
   ],
@@ -192,21 +173,6 @@
       "id": 14,
       "pizzaId": 6,
       "toppingId": 5
-    },
-    {
-      "pizzaId": 7,
-      "toppingId": 4,
-      "id": 17
-    },
-    {
-      "pizzaId": 7,
-      "toppingId": 5,
-      "id": 18
-    },
-    {
-      "pizzaId": 7,
-      "toppingId": 6,
-      "id": 19
     }
   ],
   "sizes": [
