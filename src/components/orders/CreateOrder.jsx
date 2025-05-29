@@ -5,13 +5,14 @@ import { addOrder, updateOrderPrice } from "../../services/orderService"
 import { addPizza } from "../../services/pizzaService"
 import { addOrderPizza } from "../../services/orderPizzaService"
 import { addPizzaTopping } from "../../services/pizzaToppingService"
-import { handleOrderInput } from "./OrderInputs" 
+import { handleOrderInput, handleIsDelivery } from "./OrderInputs" 
 
 
-export const CreateOrder = ({ currentUser , allEmployees, allSizes, allCheeses, allSauces, allToppings, getAndSetAllOrders}) => {
+export const CreateOrder = ({ currentUser , allEmployees, allTables, allSizes, allCheeses, allSauces, allToppings, getAndSetAllOrders}) => {
     const [numPizzas, setNumPizzas] = useState(1)
     const [newOrder, setNewOrder] = useState({ delivererId: "", tip: "" })
     const [newPizzas, setNewPizzas] = useState([{ sizeId: "", cheeseId: "", sauceId: "", toppingIds: [] }])
+    const [isDelivery, setIsDelivery] = useState(false);
 
     const navigate = useNavigate()
 
@@ -22,7 +23,8 @@ export const CreateOrder = ({ currentUser , allEmployees, allSizes, allCheeses, 
 
         const orderToSend = {
             employeeId: currentUser.id,
-            delivererId: Number(newOrder.delivererId),
+            tableId: Number(newOrder.tableId) || null,
+            delivererId: Number(newOrder.delivererId) || null,
             tip: parseFloat(newOrder.tip),
             dateAndTime: new Date().toISOString()
         }
@@ -101,28 +103,85 @@ export const CreateOrder = ({ currentUser , allEmployees, allSizes, allCheeses, 
             </fieldset>
             <fieldset>
                 <div className="form-group">
-                        <label>Choose Deliverer: </label>
+                    <label>Is order a delivery? </label>
+                    <div className="form-control">
+                        <input 
+                            type="radio"
+                            name="isDelivery"
+                            value={false}
+                            checked={!isDelivery}
+                            onChange={() => setIsDelivery(false)}
+                        />
+                        No
+                    </div>
+                    <div className="form-control">
+                        <input
+                            type="radio"
+                            name="isDelivery"
+                            value={true}
+                            checked={isDelivery}
+                            onChange={() => setIsDelivery(true)}
+                        />
+                        Yes
+                    </div>
+                </div>
+            </fieldset>
+            {!isDelivery && (
+                <fieldset>
+                    <div className="form-group">
+                        <label>Choose Table: </label>
                         <select
                             type="number"
-                            name="delivererId"
-                            onChange={handleOrderInput(setNewOrder)}
+                            name="tableId"
+                            onChange={(e) => {
+                                handleOrderInput(setNewOrder)(e) // this is curried function 
+                                handleIsDelivery(setNewOrder, false) // this is normal function
+                            }}
                             className="form-control"
                         >
-                            <option value={"" ?? 0}>Select Deliverer </option>
-                            {allEmployees
-                            .filter((employeeObj) => employeeObj.deliverer)
-                            .map((employeeObj) => (
-                                <option
-                                    key={employeeObj.id}
+                            <option value={""}>Select Table </option>
+                            {allTables.map((tableObj) => (
+                                <option 
+                                    key={tableObj.id}
                                     className="filter-size"
-                                    value={employeeObj.id}
+                                    value={tableObj.id}
                                 >
-                                    {employeeObj.fullName}
+                                    {tableObj.id}
                                 </option>
-                            ))}  
+                            ))}
                         </select>
                     </div>
-            </fieldset>
+                </fieldset>
+            )}
+            {isDelivery && (
+                <fieldset>
+                    <div className="form-group">
+                            <label>Choose Deliverer: </label>
+                            <select
+                                type="number"
+                                name="delivererId"
+                                onChange={(e) => {
+                                    handleOrderInput(setNewOrder)(e) // this is curried function 
+                                     handleIsDelivery(setNewOrder, false) // this is normal function
+                                }}
+                                className="form-control"
+                            >
+                                <option value={""}>Select Deliverer </option>
+                                {allEmployees
+                                .filter((employeeObj) => employeeObj.deliverer)
+                                .map((employeeObj) => (
+                                    <option
+                                        key={employeeObj.id}
+                                        className="filter-size"
+                                        value={employeeObj.id}
+                                    >
+                                        {employeeObj.fullName}
+                                    </option>
+                                ))}  
+                            </select>
+                        </div>
+                </fieldset>
+            )}
             <fieldset>
                 <div className="form-group">
                     <label>Tip $: </label>

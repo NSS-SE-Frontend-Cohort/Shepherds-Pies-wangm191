@@ -15,13 +15,22 @@ export const getToppingsByPizzaId = async (pizzaId) => {
 }
 
 export const deletePizzaTopping = async (id) => {
-    return await fetch(`http://localhost:8088/pizzaToppings/${id}`, {
-        method: "DELETE",
-        headers: {
-            "Content-Type": "application/json"
-        },
-    })
+    // Check if it exists before attempting delete
+    const response = await fetch(`http://localhost:8088/pizzaToppings/${id}`)
+    if (response.status === 404) {
+        console.warn(`Pizza topping ${id} does not exist.`)
+        return
+    }
+
+    const deleteResponse = await fetch(`http://localhost:8088/pizzaToppings/${id}`, {
+      method: "DELETE"
+    });
+
+    if (!deleteResponse.ok) {
+        throw new Error(`Failed to delete pizza topping ${id}: ${deleteResponse.status}`)
+    }
 }
+
 
 export const updatePizzaTopping = async (pizzaTopping) => {
     const response = await fetch(`http://localhost:8088/pizzaToppings/${pizzaTopping.id}`, {

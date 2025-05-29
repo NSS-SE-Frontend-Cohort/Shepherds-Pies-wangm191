@@ -6,7 +6,7 @@ import { deletePizza } from "../../services/pizzaService"
 import { deletePizzaTopping, getToppingsByPizzaId } from "../../services/pizzaToppingService"
 import { useNavigate } from "react-router-dom"
 
-export const MyOrders = ({ currentUser, allOrders, allEmployees, getAndSetAllOrders}) => {
+export const MyOrders = ({ currentUser, allOrders, allEmployees, allTables, getAndSetAllOrders}) => {
     const [myOrders, setMyOrders] = useState([])
 
     const navigate = useNavigate()
@@ -18,28 +18,59 @@ export const MyOrders = ({ currentUser, allOrders, allEmployees, getAndSetAllOrd
 
     }, [currentUser, allOrders])
 
-    const handleDeleteOrder = async (id) => {
+    // const handleDeleteOrder = async (id) => {
+    //     try {
+    //         const orderPizzas = await getOrderPizzasByOrderId(id)
+
+    //         for (const orderPizza of orderPizzas) {
+    //             const toppings = await getToppingsByPizzaId(orderPizza.pizzaId)
+
+    //             for (const topping of toppings) {
+    //                 await deletePizzaTopping(topping.id)
+    //             }
+
+    //             await deletePizza(orderPizza.pizzaId)
+    //             await deleteOrderPizza(orderPizza.id)
+    //         }
+
+    //         await deleteOrder(id)
+    //         getAndSetAllOrders()
+    //     }
+    //     catch (error) {
+    //         console.error("Failed to delete order and related data:", error)
+    //     }
+    // }
+
+    const handleDeleteOrder = async (orderId) => {
         try {
-            const orderPizzas = await getOrderPizzasByOrderId(id)
+            const orderPizzas = await getOrderPizzasByOrderId(orderId);
+            const pizzaIds = orderPizzas.map(op => op.pizzaId);
+            const orderPizzaIds = orderPizzas.map(op => op.id);
 
-            for (const orderPizza of orderPizzas) {
-                const toppings = await getToppingsByPizzaId(orderPizza.pizzaId)
-
-                for (const topping of toppings) {
-                    await deletePizzaTopping(topping.id)
-                }
-
-                await deletePizza(orderPizza.pizzaId)
-                await deleteOrderPizza(orderPizza.id)
+            // Delete all toppings for pizzas in parallel
+            for (const pizzaId of pizzaIds) {
+            const toppings = await getToppingsByPizzaId(pizzaId);
+            for (const topping of toppings) {
+                if (topping?.id) await deletePizzaTopping(topping.id);
+            }
             }
 
-            await deleteOrder(id)
-            getAndSetAllOrders()
+            // Delete all orderPizzas for the order in parallel
+            await Promise.all(orderPizzaIds.map(id => deleteOrderPizza(id)));
+
+            // Delete all pizzas in parallel
+            await Promise.all(pizzaIds.map(id => deletePizza(id)));
+
+            // Finally, delete the order
+            await deleteOrder(orderId);
+
+            getAndSetAllOrders();
+        } catch (error) {
+            console.error("Failed to delete order and related data:", error);
         }
-        catch (e) {
-            console.error("Failed to delete order and related data:", error)
-        }
-    }
+        };
+
+
 
     // const handleEditOrder = async (id) => {
     //     navigate(`/edit/${id}`)
@@ -57,6 +88,7 @@ export const MyOrders = ({ currentUser, allOrders, allEmployees, getAndSetAllOrd
                                     order={orderObj}
                                     key={orderObj.id}
                                     allEmployees={allEmployees}
+                                    allTables={allTables}
                                 />
                             </div>
                             <div className="btn-container">

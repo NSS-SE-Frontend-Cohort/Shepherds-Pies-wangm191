@@ -2,18 +2,19 @@ import { useEffect, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom"
 import { getOrderById, updateOrderPrice } from "../../services/orderService"
 import { getPizzaById } from "../../services/pizzaService"
-import { handleOrderInput } from "./OrderInputs"
+import { handleIsDelivery, handleOrderInput } from "./OrderInputs"
 import { PizzaForm } from "./PizzaForm"
 import { updateOrder } from "../../services/orderService"
 import { updatePizza } from "../../services/pizzaService"
 import { addPizzaTopping, deletePizzaTopping } from "../../services/pizzaToppingService"
 import { updateOrderPizza } from "../../services/orderPizzaService"
 
-export const EditOrder = ({ allEmployees, allSizes, allCheeses, allSauces, allToppings, getAndSetAllOrders }) => {
+export const EditOrder = ({ allEmployees, allTables, allSizes, allCheeses, allSauces, allToppings, getAndSetAllOrders }) => {
     const {id} = useParams()
 
     const [order, setOrder]= useState({})
     const [pizzas, setPizzas] = useState([{ sizeId: "", cheeseId: "", sauceId: "", toppingIds: [] }])
+    const [isDelivery, setIsDelivery] = useState(false);
 
     const navigate = useNavigate()
 
@@ -21,6 +22,13 @@ export const EditOrder = ({ allEmployees, allSizes, allCheeses, allSauces, allTo
         getOrderById(id).then((data) => {
             const orderObj = data[0]
             setOrder(orderObj)
+
+            if (orderObj.delivererId !== null || orderObj.delivererId !== undefined) {
+                setIsDelivery(true)
+            }
+            else {
+                setIsDelivery(false)
+            }
         })
     }, [id])
 
@@ -56,8 +64,9 @@ export const EditOrder = ({ allEmployees, allSizes, allCheeses, allSauces, allTo
 
         const orderToUpdate = {
             id: order.id,
-            employeeId: Number(order.employeeId),
-            delivererId: Number(order.delivererId),
+            employeeId: order.employeeId,
+            tableId: Number(order.tableId) || null, 
+            delivererId: Number(order.delivererId) || null,
             tip: parseFloat(order.tip),
             dateAndTime: new Date().toISOString()
         }
@@ -124,31 +133,90 @@ export const EditOrder = ({ allEmployees, allSizes, allCheeses, allSauces, allTo
     return (
         <form className="edit-order">
             <h2>Edit Order #{id}</h2>
-             <fieldset>
+            <fieldset>
                 <div className="form-group">
-                        <label>Choose Deliverer: </label>
-                        <select
+                    <label>Is order a delivery?</label>
+                    <div className="form-control">
+                        <input 
+                            type="radio"
+                            name="isDelivery"
+                            value={isDelivery}
+                            checked={!isDelivery}
+                            onChange={() => setIsDelivery(false)}
+                        /> 
+                        No
+                    </div>
+                    <div className="form-control">
+                        <input
+                            type="radio"
+                            name="isDelivery"
+                            value={isDelivery}
+                            checked={isDelivery}
+                            onChange={() => setIsDelivery(true)}
+                        />
+                        Yes
+                    </div>
+                </div>
+            </fieldset>
+            {!isDelivery && (
+                <fieldset>
+                    <div className="form-group">
+                        <label>Choose Table: </label>
+                        <select 
                             type="number"
-                            name="delivererId"
-                            value={order.delivererId || 0}
-                            onChange={handleOrderInput(setOrder)}
+                            name="tableId"
+                            onChange={(e) => {
+                                handleOrderInput(setOrder)(e) // this is curried function 
+                                handleIsDelivery(setOrder, false) // this is normal function
+                            }}
                             className="form-control"
                         >
-                            <option value={0}>None</option>
-                            {allEmployees
-                            .filter((employeeObj) => employeeObj.deliverer)
-                            .map((employeeObj) => (
-                                <option
-                                    key={employeeObj.id}
+                            <option value={""}>Select Table </option>
+                            {allTables.map((tableObj) => (
+                                <option 
+                                    key={tableObj.id}
                                     className="filter-size"
-                                    value={employeeObj.id}
+                                    value={tableObj.id}
                                 >
-                                    {employeeObj.fullName}
+                                    {tableObj.id}
                                 </option>
-                            ))}  
+                            ))}
                         </select>
                     </div>
-            </fieldset>
+                </fieldset>
+                )
+            }
+            {isDelivery && (
+                <fieldset>
+                    <div className="form-group">
+                            <label>Choose Deliverer: </label>
+                            <select
+                                type="number"
+                                name="delivererId"
+                                value={order.delivererId || ""}
+                                onChange={(e) => {
+                                    handleOrderInput(setOrder)(e) // this is curried function 
+                                    handleIsDelivery(setOrder, true) // this is normal function
+                                }}
+                                className="form-control"
+                            >
+                                <option value={0}>None</option>
+                                {allEmployees
+                                .filter((employeeObj) => employeeObj.deliverer)
+                                .map((employeeObj) => (
+                                    <option
+                                        key={employeeObj.id}
+                                        className="filter-size"
+                                        value={employeeObj.id}
+                                    >
+                                        {employeeObj.fullName}
+                                    </option>
+                                ))}  
+                            </select>
+                        </div>
+                </fieldset>
+                )
+            }
              <fieldset>
                 <div className="form-group">
                     <label>Tip $: </label>

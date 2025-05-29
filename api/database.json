@@ -338,5 +338,19 @@
       "fullName": "Caesar Little",
       "deliverer": false
     }
+  ],
+  "tables": [
+    {
+      "id": 1,
+      "seats": 4
+    },
+    {
+      "id": 2,
+      "seats": 2
+    },
+    {
+      "id": 3,
+      "seats": 4
+    }
   ]
 }

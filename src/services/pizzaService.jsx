@@ -23,11 +23,6 @@ export const getPizzaById = (id) => {
     .then((response) => response.json())
 }
 
-// export const getOnlyPizzaById = (id) => {
-//     return fetch (`http://localhost:8088/pizzas?id=${id}`)
-//     .then((response) => response.json())
-// }
-
 export const addPizza = async (pizzaToSend) => {
     const response = await fetch(`http://localhost:8088/pizzas`, {
         method: "POST",
@@ -40,13 +35,15 @@ export const addPizza = async (pizzaToSend) => {
 }
 
 export const deletePizza = async (id) => {
-    return await fetch(`http://localhost:8088/pizzas/${id}`, {
-        method: "DELETE",
-        headers: {
-            "Content-Type": "application/json"
-        },
-    })
-}
+  const res = await fetch(`http://localhost:8088/pizzas/${id}`, {
+    method: "DELETE"
+  });
+  if (!res.ok) {
+    const errorText = await res.text();
+    throw new Error(`Failed to delete pizza ${id}: ${res.status} ${errorText}`);
+  }
+};
+
 
 export const updatePizza = async (pizza) => {
     const response = await fetch(`http://localhost:8088/pizzas/${pizza.id}`, {

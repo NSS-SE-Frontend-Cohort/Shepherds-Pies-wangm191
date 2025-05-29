@@ -9,11 +9,14 @@ export const addOptionItem = async (optionLabel, optionObj) => {
     return response.json()
 }
 
-export const deleteOptionItem = async (optionLabel, optionObj) => {
-    return await fetch(`http://localhost:8088/${optionLabel}/${optionObj.id}`, {
-        method: "DELETE",
-        headers: {
-            "Content-Type": "application/json"
-        },
-    })
-}
+// export const deleteOptionItem = async (optionLabel, optionObj) => {
+//     const response = await fetch(`http://localhost:8088/${optionLabel}/${optionObj.id}`, {
+//         method: "DELETE"
+//     });
+
+//     if (!response.ok) {
+//         throw new Error(`Failed to delete ${optionLabel} with id ${optionObj.id}`);
+//     }
+
+//     return true;
+// }

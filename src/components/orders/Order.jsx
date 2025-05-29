@@ -1,15 +1,16 @@
 import { useEffect, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom"
 import { getOrderById } from "../../services/orderService"
-import { findEmployee, findDeliverer, getSizeById, getCheeseById, getSauceById, getToppingsById, getDeliveryFee } from "../../handlers/handlers"
+import { findEmployee, findDeliverer, getSizeById, getCheeseById, getSauceById, getToppingsById, getDeliveryFee, getTableById } from "../../handlers/handlers"
 import { getPizzaById } from "../../services/pizzaService"
 
-export const Order = ({ order, allEmployees }) => {
+export const Order = ({ order, allEmployees, allTables}) => {
     const navigate = useNavigate()
     const orderEmployee = findEmployee(order, allEmployees)
     const orderDeliverer = findDeliverer(order, allEmployees)
+    const orderTable = getTableById(order.tableId, allTables)
 
-    const finalPrice = orderDeliverer !=null ? order.price + getDeliveryFee() : order.price
+    const finalPrice = orderDeliverer != null ? order.price + getDeliveryFee() : order.price
 
     return ( 
         <section className="order">
@@ -17,6 +18,9 @@ export const Order = ({ order, allEmployees }) => {
             <div className="order-info">Number Of Pizzas: {order.orderPizzas.length}</div>
             <div className="order-info">Employee: {orderEmployee?.fullName}</div>
             <footer>
+                <div>
+                    <div className="order-info">Table #: {orderTable ? `${orderTable.id}` : `N/A`}</div>
+                </div>
                 <div>
                     <div className="order-info">{orderDeliverer ? `Delivery by: ${orderDeliverer?.fullName}` : `No delivery required.`}</div>
                 </div>
@@ -36,7 +40,7 @@ export const Order = ({ order, allEmployees }) => {
     )
 }
 
-export const OrderDetail = ({ allEmployees, allSizes, allCheeses, allSauces, allToppings }) => {
+export const OrderDetail = ({ allEmployees, allTables, allSizes, allCheeses, allSauces, allToppings }) => {
     const { id } = useParams()
 
     const [order, setOrder] = useState({})
@@ -60,6 +64,7 @@ export const OrderDetail = ({ allEmployees, allSizes, allCheeses, allSauces, all
 
     const orderEmployee = findEmployee(order, allEmployees)
     const orderDeliverer = findDeliverer(order, allEmployees)
+    const orderTable = getTableById(order.tableId, allTables)
     const finalPrice = orderDeliverer !=null ? order.price + getDeliveryFee() : order.price
 
     return (
@@ -70,6 +75,10 @@ export const OrderDetail = ({ allEmployees, allSizes, allCheeses, allSauces, all
                         Date: {new Date(order.dateAndTime).toLocaleString()}
                     </div>
                     <div className="order-info">Employee: {orderEmployee?.fullName}</div>
+                    <div className="order-info">
+                        <span>Table #: {orderTable ? `${orderTable.id}` : `N/A`} </span>
+                        <span>Seats: {orderTable ? `${orderTable.seats}` : `N/A`}</span>     
+                    </div>
                     <div className="order-info">{orderDeliverer ? `Delivery by: ${orderDeliverer?.fullName}` : `No delivery required.`}</div>
                     <footer>
                         <div>

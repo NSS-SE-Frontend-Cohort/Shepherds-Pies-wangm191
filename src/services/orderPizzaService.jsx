@@ -14,15 +14,16 @@ export const getOrderPizzasByOrderId = async (orderId) => {
     return response.json();
 }
 
-
 export const deleteOrderPizza = async (id) => {
-    return await fetch(`http://localhost:8088/orderPizzas/${id}`, {
-        method: "DELETE",
-        headers: {
-          "content-Type": "application/json",
-        }
-    })
-}
+  const res = await fetch(`http://localhost:8088/orderPizzas/${id}`, {
+    method: "DELETE"
+  });
+  if (!res.ok) {
+    const errorText = await res.text();
+    throw new Error(`Failed to delete order pizza ${id}: ${res.status} ${errorText}`);
+  }
+};
+
 
 export const updateOrderPizza = async (orderPizza) => {
     const response = await fetch(`http://localhost:8088/orderPizzas/${orderPizza.id}`, {

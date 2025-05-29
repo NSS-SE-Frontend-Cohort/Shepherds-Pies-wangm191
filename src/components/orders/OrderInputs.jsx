@@ -5,7 +5,7 @@ export const handleOrderInput = (setOrder) => (event) => {
             if (name === "delivererId") {
                 newValue = value === "" ? null : value;
             } else if (name === "tip") {
-                newValue = value === "" ? 0 : parseFloat(value);
+                newValue = value === "" ? 0 : value;
             }
 
         setOrder(prev => ({
@@ -13,6 +13,14 @@ export const handleOrderInput = (setOrder) => (event) => {
             [name]: newValue
         }))
     }
+
+export const handleIsDelivery = (setOrder, isDelivery) => {
+    setOrder(prev => ({
+        ...prev,
+        tableId: isDelivery ? "" : prev.tableId, // if isDelivery then set tableId to null
+        delivererId: !isDelivery ? "" : prev.delivererId // if not isDelivery then set delivererId to null
+    }));
+}
 
 export const handlePizzaToppingsInput = (index, event, setPizzas) => {
         const { value, checked } = event.target

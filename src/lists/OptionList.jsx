@@ -23,7 +23,7 @@ export const OptionList = ({ allOptionList, optionIndex }) => {
             <article className="option">
                 {allOptionList.map(optionObj => {
                     return(
-                        <div>
+                        <div key={optionObj.id}>
                             <header className="option-info"></header>
                             <div className="option option-item">
                                 <div className="option-info">Type: {optionObj.type ? optionObj?.type : optionObj?.flavor}</div>

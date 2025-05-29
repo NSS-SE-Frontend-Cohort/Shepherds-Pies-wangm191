@@ -5,6 +5,7 @@ import { MyOrders } from "../components/orders/MyOrders"
 import { NavBar } from "../components/navbar/NavBar"
 import { OrderDetail } from "../components/orders/Order"
 import { getAllEmployees } from "../services/employeeService"
+import { getAllTables } from "../services/tableService"
 import { getAllOrders } from "../services/orderService"
 import { useState, useEffect } from "react"
 import { getAllCheeses, getAllSizes, getAllSauces, getAllToppings } from "../services/pizzaService"
@@ -17,6 +18,7 @@ export const ApplicaionViews = () => {
     const [currentUser, setCurrentUser] = useState({})
     const [allOrders, setAllOrders] = useState([])
     const [allEmployees, setAllEmployees] = useState([])
+    const [allTables, setAllTables] = useState([])
     const [allSizes, setAllSizes] = useState([])
     const [allCheeses, setAllCheeses] = useState([])
     const [allSauces, setAllSauces] = useState([])
@@ -33,6 +35,10 @@ export const ApplicaionViews = () => {
 
         getAllEmployees().then((employeesArray) => {
             setAllEmployees(employeesArray)
+        })
+
+        getAllTables().then((tablesArray) => {
+            setAllTables(tablesArray)
         })
 
         getAllSizes().then((sizesArray) => {
@@ -76,11 +82,13 @@ export const ApplicaionViews = () => {
                         <AllOrders
                             allOrders={allOrders}
                             allEmployees={allEmployees}
+                            allTables={allTables}
                         />}
                     />
                     <Route path=":id" element={
                         <OrderDetail
                             allEmployees={allEmployees}
+                            allTables={allTables}
                             allSizes={allSizes}
                             allCheeses={allCheeses}
                             allSauces={allSauces}
@@ -94,6 +102,7 @@ export const ApplicaionViews = () => {
                             currentUser={currentUser}
                             allOrders={allOrders}
                             allEmployees={allEmployees}
+                            allTables={allTables}
                             getAndSetAllOrders={getAndSetAllOrders}
                         />}
                     />
@@ -102,6 +111,7 @@ export const ApplicaionViews = () => {
                     <CreateOrder 
                         currentUser={currentUser}
                         allEmployees={allEmployees}
+                        allTables={allTables}
                         allSizes={allSizes}
                         allCheeses={allCheeses}
                         allSauces={allSauces}
@@ -113,6 +123,7 @@ export const ApplicaionViews = () => {
                     <Route path=":id" element={
                         <EditOrder 
                             allEmployees={allEmployees}
+                            allTables={allTables}
                             allSizes={allSizes}
                             allCheeses={allCheeses}
                             allSauces={allSauces}
