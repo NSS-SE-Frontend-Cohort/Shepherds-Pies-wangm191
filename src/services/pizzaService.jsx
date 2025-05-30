@@ -18,10 +18,11 @@ export const getAllToppings = () => {
     .then((response) => response.json())
 }
 
-export const getPizzaById = (id) => {
-    return fetch(`http://localhost:8088/pizzas?id=${id}&_embed=pizzaToppings`)
-    .then((response) => response.json())
+export const getPizzaById = async (id) => {
+    const response = await fetch(`http://localhost:8088/pizzas/${id}?_embed=pizzaToppings`)
+    return response.json()
 }
+
 
 export const addPizza = async (pizzaToSend) => {
     const response = await fetch(`http://localhost:8088/pizzas`, {
@@ -35,14 +36,10 @@ export const addPizza = async (pizzaToSend) => {
 }
 
 export const deletePizza = async (id) => {
-  const res = await fetch(`http://localhost:8088/pizzas/${id}`, {
-    method: "DELETE"
-  });
-  if (!res.ok) {
-    const errorText = await res.text();
-    throw new Error(`Failed to delete pizza ${id}: ${res.status} ${errorText}`);
-  }
-};
+    return await fetch(`http://localhost:8088/pizzas/${id}`, {
+        method: "DELETE"
+    })
+}
 
 
 export const updatePizza = async (pizza) => {

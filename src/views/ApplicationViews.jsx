@@ -12,11 +12,14 @@ import { getAllCheeses, getAllSizes, getAllSauces, getAllToppings } from "../ser
 import { CreateOrder } from "../components/orders/CreateOrder"
 import { EditOrder } from "../components/orders/EditOrder"
 import { OptionList } from "../lists/OptionList"
+import { getAllPizzaToppings } from "../services/pizzaToppingService"
 
 
 export const ApplicaionViews = () => {
     const [currentUser, setCurrentUser] = useState({})
     const [allOrders, setAllOrders] = useState([])
+    //const [allOrderPizzas, setAllOrderPizzas] = useState([])
+    const [allPizzaToppings, setAllPizzaToppings ] = useState([])
     const [allEmployees, setAllEmployees] = useState([])
     const [allTables, setAllTables] = useState([])
     const [allSizes, setAllSizes] = useState([])
@@ -32,6 +35,14 @@ export const ApplicaionViews = () => {
 
     useEffect(() => {
         getAndSetAllOrders()
+
+        // getAllOrderPizzas().then((orderPizzasArray) => {
+        //     setAllOrderPizzas(orderPizzasArray)
+        // })
+
+        getAllPizzaToppings().then((pizzaToppingsArray) => {
+            setAllPizzaToppings(pizzaToppingsArray)
+        })
 
         getAllEmployees().then((employeesArray) => {
             setAllEmployees(employeesArray)
@@ -87,6 +98,7 @@ export const ApplicaionViews = () => {
                     />
                     <Route path=":id" element={
                         <OrderDetail
+                            allPizzaToppings={allPizzaToppings}
                             allEmployees={allEmployees}
                             allTables={allTables}
                             allSizes={allSizes}

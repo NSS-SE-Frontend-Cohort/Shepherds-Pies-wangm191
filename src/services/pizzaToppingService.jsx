@@ -1,3 +1,8 @@
+export const getAllPizzaToppings = async () => {
+    const response = await fetch("http://localhost:8088/pizzaToppings")
+    return response.json()
+}
+
 export const addPizzaTopping = async (pizzaToppingToSend) => {
     const response = await fetch(`http://localhost:8088/pizzaToppings`, {
         method: "POST",
@@ -15,22 +20,10 @@ export const getToppingsByPizzaId = async (pizzaId) => {
 }
 
 export const deletePizzaTopping = async (id) => {
-    // Check if it exists before attempting delete
-    const response = await fetch(`http://localhost:8088/pizzaToppings/${id}`)
-    if (response.status === 404) {
-        console.warn(`Pizza topping ${id} does not exist.`)
-        return
-    }
-
-    const deleteResponse = await fetch(`http://localhost:8088/pizzaToppings/${id}`, {
+    return await fetch(`http://localhost:8088/pizzaToppings/${id}`, {
       method: "DELETE"
-    });
-
-    if (!deleteResponse.ok) {
-        throw new Error(`Failed to delete pizza topping ${id}: ${deleteResponse.status}`)
-    }
+    })
 }
-
 
 export const updatePizzaTopping = async (pizzaTopping) => {
     const response = await fetch(`http://localhost:8088/pizzaToppings/${pizzaTopping.id}`, {

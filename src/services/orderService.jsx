@@ -20,14 +20,11 @@ export const addOrder = async (orderToSend) => {
 }
 
 export const deleteOrder = async (id) => {
-  const res = await fetch(`http://localhost:8088/orders/${id}`, {
+  return await fetch(`http://localhost:8088/orders/${id}`, {
     method: "DELETE"
-  });
-  if (!res.ok) {
-    const errorText = await res.text();
-    throw new Error(`Failed to delete order ${id}: ${res.status} ${errorText}`);
-  }
-};
+  })
+}
+
 
 
 export const updateOrder = async (order) => {

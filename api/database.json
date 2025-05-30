@@ -3,14 +3,16 @@
     {
       "id": 1,
       "employeeId": 1,
-      "delivererId": null,
+      "tableId": 2,
+      "delivererId": 0,
       "price": 14.1,
       "tip": 2.55,
       "dateAndTime": "2025-05-24T00:55:30Z"
     },
     {
       "id": 2,
-      "employeeId": 2,
+      "employeeId": 3,
+      "tableId": 0,
       "delivererId": 2,
       "price": 27.7,
       "tip": 4.9,
@@ -19,7 +21,8 @@
     {
       "id": 3,
       "employeeId": 3,
-      "delivererId": 2,
+      "tableId": 3,
+      "delivererId": 0,
       "price": 15,
       "tip": 3,
       "dateAndTime": "2025-05-25T12:40:00Z"
@@ -27,18 +30,11 @@
     {
       "id": 4,
       "employeeId": 3,
+      "tableId": 0,
       "delivererId": 1,
       "price": 29.25,
       "tip": 5.25,
       "dateAndTime": "2025-05-25T17:30:50Z"
-    },
-    {
-      "id": 5,
-      "employeeId": 3,
-      "delivererId": 2,
-      "tip": 3.5,
-      "dateAndTime": "2025-05-27T22:42:48.926Z",
-      "price": 15.95
     }
   ],
   "orderPizzas": [
@@ -71,11 +67,6 @@
       "id": 6,
       "orderId": 4,
       "pizzaId": 5
-    },
-    {
-      "id": 7,
-      "orderId": 5,
-      "pizzaId": 7
     }
   ],
   "pizzas": [
@@ -113,12 +104,6 @@
       "id": 6,
       "sizeId": 2,
       "cheeseId": 2,
-      "sauceId": 3
-    },
-    {
-      "id": 7,
-      "sizeId": 3,
-      "cheeseId": 3,
       "sauceId": 3
     }
   ],
@@ -192,21 +177,6 @@
       "id": 14,
       "pizzaId": 6,
       "toppingId": 5
-    },
-    {
-      "pizzaId": 7,
-      "toppingId": 4,
-      "id": 17
-    },
-    {
-      "pizzaId": 7,
-      "toppingId": 5,
-      "id": 18
-    },
-    {
-      "pizzaId": 7,
-      "toppingId": 6,
-      "id": 19
     }
   ],
   "sizes": [

@@ -8,66 +8,69 @@ import { addPizzaTopping } from "../../services/pizzaToppingService"
 import { handleOrderInput, handleIsDelivery } from "./OrderInputs" 
 
 
-export const CreateOrder = ({ currentUser , allEmployees, allTables, allSizes, allCheeses, allSauces, allToppings, getAndSetAllOrders}) => {
+export const CreateOrder = ({ currentUser, allEmployees, allTables, allSizes, allCheeses, allSauces, allToppings, getAndSetAllOrders}) => {
     const [numPizzas, setNumPizzas] = useState(1)
-    const [newOrder, setNewOrder] = useState({ delivererId: "", tip: "" })
+    const [newOrder, setNewOrder] = useState({ tableId: "", delivererId: "", tip: "" })
     const [newPizzas, setNewPizzas] = useState([{ sizeId: "", cheeseId: "", sauceId: "", toppingIds: [] }])
     const [isDelivery, setIsDelivery] = useState(false);
 
     const navigate = useNavigate()
 
     const handleSaveOrder = async (event) => {
-        event.preventDefault()
+        event.preventDefault();
 
-        let totalPrice = 0 
+        let totalPrice = 0;
 
         const orderToSend = {
             employeeId: currentUser.id,
-            tableId: Number(newOrder.tableId) || null,
-            delivererId: Number(newOrder.delivererId) || null,
+            tableId: Number(newOrder.tableId) || 0,
+            delivererId: Number(newOrder.delivererId) || 0,
             tip: parseFloat(newOrder.tip),
             dateAndTime: new Date().toISOString()
-        }
-        try {
-            const currentOrder = await addOrder(orderToSend)
-            const currentOrderId = currentOrder.id
+        };
 
-            for ( const pizza of newPizzas ) {
-                const sizeCost = allSizes.find(size => size.id === pizza.sizeId)?.cost
+        try {
+            const currentOrder = await addOrder(orderToSend);
+            const currentOrderId = currentOrder.id;
+
+            for (const pizza of newPizzas) {
+                const sizeCost = allSizes.find(size => size.id === pizza.sizeId)?.cost || 0;
 
                 const toppingsCost = pizza.toppingIds
-                    .map(toppingId => allToppings.find(topping => topping.id === toppingId)?.cost)
-                    .reduce((prev, cur) => prev + cur, 0)
+                    .map(toppingId => allToppings.find(topping => topping.id === toppingId)?.cost || 0) // different to topping_Id, got from pizza.toppingIds []
+                    .reduce((prev, cur) => prev + cur, 0);
 
-                totalPrice += sizeCost + toppingsCost
+                totalPrice += sizeCost + toppingsCost;
 
-                const pizzaToSend = { 
+                const pizzaToSend = {
                     sizeId: pizza.sizeId,
                     cheeseId: pizza.cheeseId,
                     sauceId: pizza.sauceId
-                }
+                };
 
-                const currentPizza = await addPizza(pizzaToSend)
-                const currentPizzaId = currentPizza.id
+                const currentPizza = await addPizza(pizzaToSend);
+                const currentPizzaId = currentPizza.id;
 
                 const orderPizzaToSend = {
                     orderId: currentOrderId,
                     pizzaId: currentPizzaId
-                }
+                };
 
-                await addOrderPizza(orderPizzaToSend)
+                await addOrderPizza(orderPizzaToSend);
 
-                for (const toppingId of pizza.toppingIds) {
-                    const pizzaToppingToSend = {
+                // ⚡️ Parallelize all topping additions for this pizza
+                const toppingPromises = pizza.toppingIds.map(toppingId => {
+                    return addPizzaTopping({
                         pizzaId: currentPizzaId,
-                        toppingId: toppingId
-                    }
-                    await addPizzaTopping(pizzaToppingToSend)
-                }
+                        toppingId: toppingId // different from topping_Id
+                    });
+                });
+                await Promise.all(toppingPromises);
             }
-            await updateOrderPrice(currentOrderId, totalPrice)
-            getAndSetAllOrders()
-            navigate("/orders")
+
+            await updateOrderPrice(currentOrderId, totalPrice);
+            getAndSetAllOrders();
+            navigate("/orders");
 
         } catch (error) {
             console.error("Error saving order:", error);
@@ -139,7 +142,7 @@ export const CreateOrder = ({ currentUser , allEmployees, allTables, allSizes, a
                             }}
                             className="form-control"
                         >
-                            <option value={""}>Select Table </option>
+                            <option value={0}>Select Table </option>
                             {allTables.map((tableObj) => (
                                 <option 
                                     key={tableObj.id}
@@ -166,7 +169,7 @@ export const CreateOrder = ({ currentUser , allEmployees, allTables, allSizes, a
                                 }}
                                 className="form-control"
                             >
-                                <option value={""}>Select Deliverer </option>
+                                <option value={0}>Select Deliverer </option>
                                 {allEmployees
                                 .filter((employeeObj) => employeeObj.deliverer)
                                 .map((employeeObj) => (

@@ -15,7 +15,7 @@ export const Order = ({ order, allEmployees, allTables}) => {
     return ( 
         <section className="order">
             <header className="order-info">Order # {order.id}</header>
-            <div className="order-info">Number Of Pizzas: {order.orderPizzas.length}</div>
+            <div className="order-info">Number Of Pizzas: {order.orderPizzas?.length}</div>
             <div className="order-info">Employee: {orderEmployee?.fullName}</div>
             <footer>
                 <div>
@@ -47,20 +47,24 @@ export const OrderDetail = ({ allEmployees, allTables, allSizes, allCheeses, all
     const [pizzas, setPizzas] = useState([])
 
     useEffect(() => {
-    getOrderById(id).then((data) => {
-        const orderObj = data[0]
-        setOrder(orderObj)
+        getOrderById(id).then((data) => {
+            const orderObj = data[0]
+            setOrder(orderObj)
+        })
+    }, [id])
 
-        if (orderObj?.orderPizzas?.length > 0) {
-            const pizzaFetches = orderObj.orderPizzas.map(orderPizza => getPizzaById(orderPizza.pizzaId))
+    useEffect(() => {
+        if (order.orderPizzas?.length > 0) {
+            const pizzaFetches = order.orderPizzas.map(orderPizza =>
+                getPizzaById(orderPizza.pizzaId)
+            )
 
             Promise.all(pizzaFetches).then((pizzaArrays) => {
                 const allPizzaData = pizzaArrays.flat()
                 setPizzas(allPizzaData)
             })
         }
-    })
-}, [id])
+    }, [order])
 
     const orderEmployee = findEmployee(order, allEmployees)
     const orderDeliverer = findDeliverer(order, allEmployees)
@@ -100,20 +104,22 @@ export const OrderDetail = ({ allEmployees, allTables, allSizes, allCheeses, all
             </section>
             {pizzas.map((pizza, index) => {
                 const pizzaSize = getSizeById(pizza.sizeId, allSizes)
-                const toppings = getToppingsById(pizza.pizzaToppings.map(pizzaTopping => pizzaTopping.toppingId), allToppings)
+                const toppings = getToppingsById(pizza.pizzaToppings?.map(pizzaTopping => pizzaTopping.toppingId), allToppings)
                 const toppingTypes = []
                 let pizzaPrice = pizzaSize.cost
                 toppings.map((topping) => {
                     toppingTypes.push(topping.type + " ")
                     return pizzaPrice += topping.cost
                 }) 
+                const pizzaCheese = getCheeseById(pizza.cheeseId, allCheeses)
+                const pizzaSauce = getSauceById(pizza.sauceId, allSauces)
                 return (
                     <section key={pizza.id} className="order">
                             <header className="order-info">Pizza # {index + 1}</header>
                             <div className="order order-item">
                                 <div className="order-info">Pizza Size: {pizzaSize.type}</div>
-                                <div className="order-info">Cheese: {getCheeseById(pizza.cheeseId, allCheeses).type}</div>
-                                <div className="order-info">Sauces: {getSauceById(pizza.sauceId, allSauces).flavor}</div>
+                                <div className="order-info">Cheese: {pizzaCheese.type}</div>
+                                <div className="order-info">Sauces: {pizzaSauce.flavor}</div>
                                 <div className="order-info">Toppings: {toppingTypes.length ? toppingTypes : "None"}</div>
                                 <footer>
                                     <div>
