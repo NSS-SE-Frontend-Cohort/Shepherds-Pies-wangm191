@@ -1,22 +1,31 @@
 export const handleOrderInput = (setOrder) => (event) => {
-        const {name, value } = event.target 
+    const { name, value } = event.target;
 
-        let newValue = value;
-            if (name === "delivererId") {
-                newValue = value === "" ? null : value;
-            } else if (name === "tip") {
-                newValue = value === "" ? 0 : parseFloat(value);
-            }
+    let newValue = value;
 
-        setOrder(prev => ({
-            ...prev,
-            [name]: newValue
-        }))
+    // Convert to number where applicable
+    if (["tableId", "delivererId", "tip"].includes(name)) {
+        newValue = value === "" ? 0 : Number(value);
     }
+
+    setOrder(prev => ({
+        ...prev,
+        [name]: newValue
+    }));
+};
+
+
+export const handleIsDelivery = (setOrder, isDelivery) => {
+    setOrder(prev => ({
+        ...prev,
+        tableId: isDelivery ? "" : prev.tableId, // if isDelivery then set tableId to null
+        delivererId: !isDelivery ? "" : prev.delivererId // if not isDelivery then set delivererId to null
+    }))
+}
 
 export const handlePizzaToppingsInput = (index, event, setPizzas) => {
         const { value, checked } = event.target
-        const toppingId = parseInt(value)
+        const topping_Id = parseInt(value)
 
         setPizzas(prev => {
             // Copies array, then copies single object from index within array. 
@@ -26,8 +35,8 @@ export const handlePizzaToppingsInput = (index, event, setPizzas) => {
             updated[index] = {
                 ...pizza,
                 toppingIds: checked
-                    ? [...currentToppings, toppingId]
-                    : currentToppings.filter(id => id !== toppingId),
+                    ? [...currentToppings, topping_Id]
+                    : currentToppings.filter(id => id !== topping_Id),
             }
             return updated
         })

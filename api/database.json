@@ -3,14 +3,16 @@
     {
       "id": 1,
       "employeeId": 1,
-      "delivererId": null,
+      "tableId": 2,
+      "delivererId": 0,
       "price": 14.1,
       "tip": 2.55,
       "dateAndTime": "2025-05-24T00:55:30Z"
     },
     {
       "id": 2,
-      "employeeId": 2,
+      "employeeId": 3,
+      "tableId": 0,
       "delivererId": 2,
       "price": 27.7,
       "tip": 4.9,
@@ -19,7 +21,8 @@
     {
       "id": 3,
       "employeeId": 3,
-      "delivererId": 2,
+      "tableId": 3,
+      "delivererId": 0,
       "price": 15,
       "tip": 3,
       "dateAndTime": "2025-05-25T12:40:00Z"
@@ -27,6 +30,7 @@
     {
       "id": 4,
       "employeeId": 3,
+      "tableId": 0,
       "delivererId": 1,
       "price": 29.25,
       "tip": 5.25,
@@ -303,6 +307,20 @@
       "email": "CaesarIsBig@pizza.org",
       "fullName": "Caesar Little",
       "deliverer": false
+    }
+  ],
+  "tables": [
+    {
+      "id": 1,
+      "seats": 4
+    },
+    {
+      "id": 2,
+      "seats": 2
+    },
+    {
+      "id": 3,
+      "seats": 4
     }
   ]
 }

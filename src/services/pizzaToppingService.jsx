@@ -1,3 +1,8 @@
+export const getAllPizzaToppings = async () => {
+    const response = await fetch("http://localhost:8088/pizzaToppings")
+    return response.json()
+}
+
 export const addPizzaTopping = async (pizzaToppingToSend) => {
     const response = await fetch(`http://localhost:8088/pizzaToppings`, {
         method: "POST",
@@ -16,10 +21,7 @@ export const getToppingsByPizzaId = async (pizzaId) => {
 
 export const deletePizzaTopping = async (id) => {
     return await fetch(`http://localhost:8088/pizzaToppings/${id}`, {
-        method: "DELETE",
-        headers: {
-            "Content-Type": "application/json"
-        },
+      method: "DELETE"
     })
 }
 

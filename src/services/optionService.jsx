@@ -8,12 +8,3 @@ export const addOptionItem = async (optionLabel, optionObj) => {
     })
     return response.json()
 }
-
-export const deleteOptionItem = async (optionLabel, optionObj) => {
-    return await fetch(`http://localhost:8088/${optionLabel}/${optionObj.id}`, {
-        method: "DELETE",
-        headers: {
-            "Content-Type": "application/json"
-        },
-    })
-}

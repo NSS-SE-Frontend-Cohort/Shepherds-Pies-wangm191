@@ -20,13 +20,12 @@ export const addOrder = async (orderToSend) => {
 }
 
 export const deleteOrder = async (id) => {
-    return await fetch(`http://localhost:8088/orders/${id}`, {
-        method: "DELETE",
-        headers: {
-            "Content-Type": "application/json"
-        },
-    })
+  return await fetch(`http://localhost:8088/orders/${id}`, {
+    method: "DELETE"
+  })
 }
+
+
 
 export const updateOrder = async (order) => {
     const response = await fetch(`http://localhost:8088/orders/${order.id}`, {

@@ -1,6 +1,7 @@
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 
 export const NavBar = () => {
+    const navigate = useNavigate()
 
     return (
         <ul className="navbar">
@@ -28,7 +29,7 @@ export const NavBar = () => {
             <li className="navbar-item">
                 <Link to={"option/toppings"}>All Toppings</Link>
             </li>
-            {localStorage.getItem("honey_user") ? (
+            {localStorage.getItem("shepherd_user") ? (
             <li className="navbar-item navbar-logout">
                 <Link
                     className="navbar-link"
