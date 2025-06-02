@@ -29,7 +29,7 @@ export const Order = ({ order, allEmployees, allTables}) => {
                 </div>
                 <div>
                     <button 
-                        className="order-btn"
+                        className="order-btn btn-secondary"
                         onClick={() => navigate(`/orders/${order.id}`)}
                     >
                         More Info!

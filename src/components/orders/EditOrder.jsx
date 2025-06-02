@@ -8,6 +8,7 @@ import { updateOrder } from "../../services/orderService"
 import { updatePizza } from "../../services/pizzaService"
 import { addPizzaTopping, deletePizzaTopping } from "../../services/pizzaToppingService"
 import { updateOrderPizza } from "../../services/orderPizzaService"
+import "./Form.css"
 
 export const EditOrder = ({ allEmployees, allTables, allSizes, allCheeses, allSauces, allToppings, getAndSetAllOrders }) => {
     const {id} = useParams()

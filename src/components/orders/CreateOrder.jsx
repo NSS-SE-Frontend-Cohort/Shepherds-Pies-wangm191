@@ -6,6 +6,7 @@ import { addPizza } from "../../services/pizzaService"
 import { addOrderPizza } from "../../services/orderPizzaService"
 import { addPizzaTopping } from "../../services/pizzaToppingService"
 import { handleOrderInput, handleIsDelivery } from "./OrderInputs" 
+import "./Form.css"
 
 
 export const CreateOrder = ({ currentUser, allEmployees, allTables, allSizes, allCheeses, allSauces, allToppings, getAndSetAllOrders}) => {

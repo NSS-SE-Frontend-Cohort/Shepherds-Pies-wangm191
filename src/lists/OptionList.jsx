@@ -1,3 +1,5 @@
+import "./Options.css"
+
 export const OptionList = ({ allOptionList, optionIndex }) => {
 
     let optionLabel = ""
@@ -18,7 +20,7 @@ export const OptionList = ({ allOptionList, optionIndex }) => {
     }
 
     return (
-        <div className="options-container">
+        <div className="options options-container">
             <h2>All {optionLabel}</h2>
             <article className="option">
                 {allOptionList.map(optionObj => {

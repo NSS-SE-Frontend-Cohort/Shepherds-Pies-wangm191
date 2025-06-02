@@ -1,5 +1,4 @@
-import { useEffect, useState } from "react"
-import { getAllOrders } from "../../services/orderService"
+import "./Orders.css"
 import { Order } from "./Order"
 
 
