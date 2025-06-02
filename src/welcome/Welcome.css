@@ -1,0 +1,39 @@
+.welcome-container {
+    margin: 2rem auto;
+    width: 60%;
+    text-align: center;
+    padding: 5rem 3rem;
+    border: 1px solid var(--outline);
+    background-color: white;
+    border-radius: 0.5rem;
+    position: relative; /* Needed for absolute positioning of children */
+}
+  
+/* This targets any h1 that is a child of an element with the .welcome-container class */
+.welcome-container > h1 {
+    display: flex;
+    flex-direction: column;
+    color: var(--main);
+}
+  
+/* This targets any div that is a child of an element with the .welcome-container class */
+  .welcome-container > div {
+    font-style: italic;
+}
+
+/* Style for the logo image in top-left corner */
+.welcome-img-bee {
+    position: absolute;
+    top: 1rem;
+    left: 2rem;
+    width: 100px; /* or whatever size fits best */
+    height: auto;
+}
+
+.welcome-img-honey {
+    transform: scale(0.3);
+    display: block;
+    margin: 3rem auto;
+    transform-origin: top center; /* keep it centered */
+}
+  

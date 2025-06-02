@@ -6,6 +6,7 @@ import { deletePizza } from "../../services/pizzaService"
 import { deletePizzaTopping, getToppingsByPizzaId } from "../../services/pizzaToppingService"
 import { useNavigate } from "react-router-dom"
 
+
 export const MyOrders = ({ currentUser, allOrders, allEmployees, allTables, getAndSetAllOrders}) => {
     const [myOrders, setMyOrders] = useState([])
 
@@ -106,18 +107,17 @@ export const MyOrders = ({ currentUser, allOrders, allEmployees, allTables, getA
             <article className="orders">
                 {myOrders.map(orderObj => {
                     return (
-                        <div key={orderObj.id}>
-                            <div>
+                        <div key={orderObj.id} className="order-button-wrapper">
                                 <Order 
                                     order={orderObj}
                                     key={orderObj.id}
                                     allEmployees={allEmployees}
                                     allTables={allTables}
                                 />
-                            </div>
+                            {orderObj.employeeId === currentUser.id && (
                             <div className="btn-container">
                                 {orderObj.employeeId === currentUser.id ? (
-                                    <button className="btn btn-warning" 
+                                    <button className="order-btn btn-primary" 
                                             onClick={() => {
                                                 navigate(`/edit/${orderObj.id}`)
                                                 //handleEditOrder(orderObj.id)
@@ -127,14 +127,13 @@ export const MyOrders = ({ currentUser, allOrders, allEmployees, allTables, getA
                                 ) : (
                                     ""
                                 )}
-                            </div>
-                            <div className="btn-container">
                                 {orderObj.employeeId === currentUser.id ? (
-                                    <button className="btn btn-warning" onClick={() => handleDeleteOrder(orderObj.id)}>Delete Order</button>
+                                    <button className="order-btn btn-warning" onClick={() => handleDeleteOrder(orderObj.id)}>Delete Order</button>
                                 ) : (
                                     ""
                                 )}
                             </div>
+                            )}
                         </div>
                     )
                 })}
